@@ -27,3 +27,6 @@
 -- finding border v1
 
 ![bording Version 1 ](images/borderV1.png)
+
+-- Median filter - perfect
+![median filter Version 1 ](images/filterV1.png)
