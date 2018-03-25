@@ -30,3 +30,6 @@
 
 -- Median filter - perfect
 ![median filter Version 1 ](images/filterV1.png)
+
+-- Simple threshold method
+![simple threshold Version 1 ](images/threshold.png)
