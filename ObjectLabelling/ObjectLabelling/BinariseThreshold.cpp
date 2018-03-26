@@ -20,7 +20,7 @@ BinariseThreshold::BinariseThreshold(Mat image){
 Mat BinariseThreshold::doBinariseImage(){
     for(int x=0; x<this->image.rows; x++){
         for(int y=0; y<this->image.cols; y++){
-            if(int(this->image.at<uchar>(x,y)) > 80){
+            if(int(this->image.at<uchar>(x,y)) > 75){
                 this->image.at<uchar>(x,y)= uchar(255);
             }else{
                 this->image.at<uchar>(x,y)= 0;

@@ -11,7 +11,7 @@
 #include <opencv2/core/core.hpp>
 
 int counter;
-BlobDetector::BlobDetector(Mat& image){
+BlobDetector::BlobDetector(Mat image){
     
     if(image.data==NULL){
         cout << "No image input" << endl;
@@ -20,12 +20,11 @@ BlobDetector::BlobDetector(Mat& image){
 
     this -> image = image;
     
-//    cout << " image matrix : " <<endl;
-//    print(this -> image);
+    cout << " image size = " <<image.size()<<endl;
     
     this -> imgMask = Mat(image.size(), CV_32SC1, cvScalar(-1));
     
-//    cout << (this->imgMask) <<endl;
+    cout << "imgMask size = "<< this->imgMask.size() <<endl;
     
 };
 
@@ -39,6 +38,17 @@ void BlobDetector::print(vector<vector<Point>> &setsOfBlob){
 
 void BlobDetector::findingBlobs(){
     Mat image = this->image;
+    
+    
+    if(!image.data){
+        cout<<"Image was not enter ... "<<endl;
+    }else{
+        cout<<" image.rows= "<<image.rows<<" image.cols = "<<image.cols;
+    }
+    
+    string ty =  type2str( image.type() );
+    printf(" enterinto finding blobs  Matrix: %s %dx%d \n", ty.c_str(), image.cols, image.rows );
+    
     vector<vector<Point>> setsOfBlob;
     counter = -1;
     int s1, s2;
@@ -47,7 +57,8 @@ void BlobDetector::findingBlobs(){
     for(int y = 1; y < image.rows; y++){
         for(int x = 1; x < image.cols; x++){
 
-            if(image.at<uchar>(y,x) != 0){
+//            cout<<"image.at<uchar>(y,x) = "<< int(image.at<uchar>(y,x))<<endl;
+            if(int(image.at<uchar>(y,x)) != 0){
                 
 //                cout <<"("<< y <<" , "<< x <<" ) color not 0 --->  " << int(image.at<uchar>(y,x)) << endl;
 //                cout << "left -->" << (int)image.at<uchar>(y,x-1) << endl;
@@ -116,6 +127,7 @@ void BlobDetector::findingBlobs(){
 //                    cout<<"counter = "<< counter <<endl;
                     vector<Point> setvec;
                     this->imgMask.at<int>(y,x) = counter;
+                    
 //                    cout<<(this->imgMask).at<int>(y,x)<<endl;
                     
                     setsOfBlob.push_back(setvec);
@@ -137,14 +149,14 @@ void BlobDetector::findingBlobs(){
     }
     this -> setsOfBlob = setsOfBlob;
 
-    //    cout << "setsOfBlob size -> " << (this -> setsOfBlob).size() << endl;
+    cout << "setsOfBlob size -> " << (this -> setsOfBlob).size() << endl;
 };
 
 int BlobDetector::getNumberOfBlobs(){
     int blobCounter  = 0;
 
     for(int i = 0;i < setsOfBlob.size(); i++){
-        if(setsOfBlob[i].size()>10){
+        if(setsOfBlob[i].size()>50){
             blobCounter++;
         }
     }
@@ -157,12 +169,12 @@ vector<vector<Point>> BlobDetector::getFullBlobs(){
     vector<vector<Point>> vectemp;
     
     for(auto sets : this->setsOfBlob){
-        if(sets.size() > 2){
+        if(sets.size() > 20){
             vectemp.push_back(sets);
         }
     }
    
-    cout << "vectemp.size = " << vectemp.size() << endl;
+//    cout << "vectemp.size = " << vectemp.size() << endl;
     
     this->setsOfFullBlobs = vectemp;
     return this->setsOfFullBlobs;
@@ -178,3 +190,27 @@ Mat BlobDetector::getImgMask(){
         
     return this->imgMask;
 };
+
+string BlobDetector::type2str(int type) {
+    string r;
+    
+    uchar depth = type & CV_MAT_DEPTH_MASK;
+    uchar chans = 1 + (type >> CV_CN_SHIFT);
+    
+    switch ( depth ) {
+        case CV_8U:  r = "8U"; break;
+        case CV_8S:  r = "8S"; break;
+        case CV_16U: r = "16U"; break;
+        case CV_16S: r = "16S"; break;
+        case CV_32S: r = "32S"; break;
+        case CV_32F: r = "32F"; break;
+        case CV_64F: r = "64F"; break;
+        default:     r = "User"; break;
+    }
+    
+    r += "C";
+    r += (chans+'0');
+    
+    return r;
+};
+

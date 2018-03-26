@@ -25,9 +25,10 @@ private:
     vector<vector<Point>> setsOfFullBlobs; //only blobs
     
     vector<vector<Point>> getSetsOfBlob();
+    string type2str(int type);
 
 public:
-    BlobDetector(Mat& image);
+    BlobDetector(Mat image);
     void print(vector<vector<Point>> &setsOfBlob);
     void findingBlobs();
     int getNumberOfBlobs(); // get the numbers of the blobs

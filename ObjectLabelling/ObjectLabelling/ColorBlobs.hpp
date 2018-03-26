@@ -22,7 +22,7 @@ private:
     vector<vector<Point>> setsOfBlobs;
     
 public:
-    ColorBlobs(Mat &image, vector<vector<Point>> setsOfBlobs);
+    ColorBlobs(Mat image, vector<vector<Point>> setsOfBlobs);
     Mat fillBlobs();
 };
 #endif /* ColorBlobs_hpp */

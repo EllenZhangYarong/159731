@@ -47,7 +47,7 @@ Mat SimpleMedianFilter::doMedianFiter(int kWidth, int kHeight){
             
             nth_element(first, middle, last);
 
-            cout << "Middle value is -> "<< *middle << endl;
+//            cout << "Middle value is -> "<< *middle << endl;
             outImage.at<uchar>(x-1,y-1) = *middle;
             
 //            kernel.clear();
