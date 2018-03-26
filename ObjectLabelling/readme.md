@@ -33,3 +33,9 @@
 
 -- Simple threshold method
 ![simple threshold Version 1 ](images/threshold.png)
+
+-- read all images to find blobs
+![read all images to find blobs ](images/saltblobs.png)
+
+-- I so love this bug, I am gonna be an artist :0
+![I so love this bug ](images/isolovethisbug.png)
