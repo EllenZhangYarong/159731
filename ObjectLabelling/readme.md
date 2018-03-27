@@ -39,3 +39,6 @@
 
 -- I so love this bug, I am gonna be an artist :0
 ![I so love this bug ](images/isolovethisbug.png)
+
+-- Sharpen the edge, not help to find blobs acuracy , but make this 3d feeling
+![3d feeling about letters ](images/sharpedge.png)

@@ -17,6 +17,8 @@
 #include "SimpleMedianFilter.hpp"
 #include "BinariseThreshold.hpp"
 #include "ReadImagesFromDir.hpp"
+#include "SharpenEdge.hpp"
+
 
 
 using namespace std;
@@ -26,89 +28,106 @@ string type2str(int type);
 
 int main(int argc, const char * argv[]) {
     
-    ReadImagesFromDir rifd(argv[1 ]);
-    vector<Mat> images = rifd.doReadImages();
-    
-    cout<<"images.size = "<<images.size()<<endl;
-    
-    for(auto image : images ){
-        
-        SimpleMedianFilter smf(image);
-        Mat filteredImage = smf.doMedianFiter(3, 3);
-        
-        BinariseThreshold bt(filteredImage);
-        Mat btimage = bt.doBinariseImage();
- 
-        BlobDetector blobDetector(btimage);
-        blobDetector.findingBlobs();
-        
-            int blobs = blobDetector.getNumberOfBlobs();
-            cout << "Final blobs ---> " << blobs << endl;
-        
-            //sb: sets of blobs without empty vectors, just blobs
-            vector<vector<Point>> sb = blobDetector.getFullBlobs();
-        
-            ColorBlobs colorBlobs(image, sb);
-        
-            Mat filled = colorBlobs.fillBlobs();
-        
-            namedWindow("fillcolor", 0);
-            imshow("fillcolor", filled);
-            waitKey(0);
-    }
-    
-//    Mat src = imread(argv[2], 0);
-//    Mat image;
+//    ReadImagesFromDir rifd(argv[1 ]);
+//    vector<Mat> images = rifd.doReadImages();
 //
-//    if( src.empty() )
-//    {
-//        cout << "Image not found! \n";
-//        return 0;
+//    cout<<"images.size = "<<images.size()<<endl;
+//
+//    for(auto image : images ){
+//
+//        SimpleMedianFilter smf(image);
+//        Mat filteredImage = smf.doMedianFiter(3, 3);
+//
+//        BinariseThreshold bt(filteredImage);
+//        Mat btimage = bt.doBinariseImage();
+//
+    
+//
+//        BlobDetector blobDetector(btimage);
+//        blobDetector.findingBlobs();
+//
+//            int blobs = blobDetector.getNumberOfBlobs();
+//            cout << "Final blobs ---> " << blobs << endl;
+//
+//            //sb: sets of blobs without empty vectors, just blobs
+//            vector<vector<Point>> sb = blobDetector.getFullBlobs();
+//
+//            ColorBlobs colorBlobs(image, sb);
+//
+//            Mat filled = colorBlobs.fillBlobs();
+//
+//            namedWindow("fillcolor", 0);
+//            imshow("fillcolor", filled);
+//            waitKey(0);
 //    }
-//    string ty =  type2str( src.type() );
-//    printf(" Src Matrix: %s %dx%d \n", ty.c_str(), image.cols, image.rows );
-//
-//    namedWindow("src");
-//    imshow("src", src);
-//    waitKey(0);
-//
-//    SimpleMedianFilter smf(src);
-//    Mat filteredImage = smf.doMedianFiter(3, 3);
-//
-//    namedWindow("filteredImage", 0);
-//    imshow("filteredImage", filteredImage);
-//    waitKey(0);
-//
-//    string ty2 =  type2str( filteredImage.type() );
-//    printf(" filtered Image Matrix: %s %dx%d \n", ty2.c_str(), filteredImage.cols, filteredImage.rows );
-//
-//    BinariseThreshold bt(filteredImage);
-//    Mat btimage = bt.doBinariseImage();
+    
+    Mat src = imread(argv[3], 0);
+    Mat image;
+
+    if( src.empty() )
+    {
+        cout << "Image not found! \n";
+        return 0;
+    }
+    string ty =  type2str( src.type() );
+    printf(" Src Matrix: %s %dx%d \n", ty.c_str(), image.cols, image.rows );
+
+    namedWindow("src");
+    imshow("src", src);
+    waitKey(0);
+
+    SimpleMedianFilter smf(src);
+    Mat filteredImage = smf.doMedianFiter(3, 3);
+
+    namedWindow("filteredImage", 0);
+    imshow("filteredImage", filteredImage);
+    waitKey(0);
+
+    string ty2 =  type2str( filteredImage.type() );
+    printf(" filtered Image Matrix: %s %dx%d \n", ty2.c_str(), filteredImage.cols, filteredImage.rows );
+
+    int seKernel[]={0,-1,0,-1,5,-1,0,-1,0};
+    SharpenEdge se(filteredImage, seKernel);
+    Mat seImage = se.doSharpenEdge();
+    
+    string ty3 =  type2str( seImage.type() );
+    printf(" sharpen edge Image Matrix: %s %dx%d \n", ty3.c_str(), seImage.cols, seImage.rows );
+    
+    namedWindow("seImage", 0);
+    imshow("seImage", seImage);
+    waitKey(0);
+    
+    BinariseThreshold bt(seImage);
+    Mat btimage = bt.doBinariseImage();
 //
 //        namedWindow("btimage", 0);
 //        imshow("btimage", btimage);
 //        waitKey(0);
-//
-////    Rect myRoi(20,20,20,20);
+
+    
+    
+    
+    
+    ////    Rect myRoi(20,20,20,20);
 ////    btimage = src(myRoi);
 ////    cout<<btimage;
 //
-//    BlobDetector blobDetector(btimage);
-//    blobDetector.findingBlobs();
+    BlobDetector blobDetector(btimage);
+    blobDetector.findingBlobs();
 //
-//    int blobs = blobDetector.getNumberOfBlobs();
-//    cout << "Final blobs ---> " << blobs << endl;
-//
-//    //sb: sets of blobs without empty vectors, just blobs
-//    vector<vector<Point>> sb = blobDetector.getFullBlobs();
-//
-//    ColorBlobs colorBlobs(src, sb);
-//
-//    Mat filled = colorBlobs.fillBlobs();
-//
-//    namedWindow("fillcolor", 0);
-//    imshow("fillcolor", filled);
-//    waitKey(0);
+    int blobs = blobDetector.getNumberOfBlobs();
+    cout << "Final blobs ---> " << blobs << endl;
+
+    //sb: sets of blobs without empty vectors, just blobs
+    vector<vector<Point>> sb = blobDetector.getFullBlobs();
+
+    ColorBlobs colorBlobs(src, sb);
+
+    Mat filled = colorBlobs.fillBlobs();
+
+    namedWindow("fillcolor", 0);
+    imshow("fillcolor", filled);
+    waitKey(0);
     
     
 //    BorderFinder borderFinder(filled, sb);

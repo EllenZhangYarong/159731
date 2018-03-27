@@ -18,10 +18,11 @@ using namespace cv;
 
 class SharpenEdge{
 private:
-    Mat mask, image;
+    Mat image;
+    int *seKernel;
     
 public:
-    SharpenEdge(Mat mask, Mat image);
+    SharpenEdge( Mat image, int *seKernel);
     Mat doSharpenEdge();
     
 };
