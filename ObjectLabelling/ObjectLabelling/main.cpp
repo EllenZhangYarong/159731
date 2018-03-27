@@ -28,38 +28,45 @@ string type2str(int type);
 
 int main(int argc, const char * argv[]) {
     
-//    ReadImagesFromDir rifd(argv[1 ]);
-//    vector<Mat> images = rifd.doReadImages();
-//
-//    cout<<"images.size = "<<images.size()<<endl;
-//
-//    for(auto image : images ){
-//
-//        SimpleMedianFilter smf(image);
-//        Mat filteredImage = smf.doMedianFiter(3, 3);
-//
-//        BinariseThreshold bt(filteredImage);
-//        Mat btimage = bt.doBinariseImage();
-//
+    /*
+     For test a batch of images
+    */
     
-//
-//        BlobDetector blobDetector(btimage);
-//        blobDetector.findingBlobs();
-//
-//            int blobs = blobDetector.getNumberOfBlobs();
-//            cout << "Final blobs ---> " << blobs << endl;
-//
-//            //sb: sets of blobs without empty vectors, just blobs
-//            vector<vector<Point>> sb = blobDetector.getFullBlobs();
-//
-//            ColorBlobs colorBlobs(image, sb);
-//
-//            Mat filled = colorBlobs.fillBlobs();
-//
-//            namedWindow("fillcolor", 0);
-//            imshow("fillcolor", filled);
-//            waitKey(0);
-//    }
+    ReadImagesFromDir rifd(argv[1]);
+    vector<Mat> images = rifd.doReadImages();
+
+//    cout<<"images.size = "<<images.size()<<endl;
+
+    for(auto image : images ){
+
+        SimpleMedianFilter smf(image);
+        Mat filteredImage = smf.doMedianFiter(3, 3);
+
+        BinariseThreshold bt(filteredImage);
+        Mat btimage = bt.doBinariseImage();
+
+        BlobDetector blobDetector(btimage);
+        blobDetector.findingBlobs();
+
+        int blobs = blobDetector.getNumberOfBlobs();
+        cout << "Final blobs ---> " << blobs << endl;
+
+        //sb: sets of blobs without empty vectors, just blobs
+        vector<vector<Point>> sb = blobDetector.getFullBlobs();
+
+        ColorBlobs colorBlobs(image, sb);
+        Mat filled = colorBlobs.fillBlobs();
+        
+        putText(filled, to_string(blobs) , cvPoint(40,40),
+                FONT_HERSHEY_COMPLEX_SMALL, 2.0, cvScalar(0,255,255), 2, CV_AA);
+        
+        namedWindow("fillcolor", 0);
+        imshow("fillcolor", filled);
+        waitKey(0);
+    }
+
+    /*
+     For test one single image
     
     Mat src = imread(argv[3], 0);
     Mat image;
@@ -99,22 +106,10 @@ int main(int argc, const char * argv[]) {
     
     BinariseThreshold bt(seImage);
     Mat btimage = bt.doBinariseImage();
-//
-//        namedWindow("btimage", 0);
-//        imshow("btimage", btimage);
-//        waitKey(0);
 
-    
-    
-    
-    
-    ////    Rect myRoi(20,20,20,20);
-////    btimage = src(myRoi);
-////    cout<<btimage;
-//
     BlobDetector blobDetector(btimage);
     blobDetector.findingBlobs();
-//
+
     int blobs = blobDetector.getNumberOfBlobs();
     cout << "Final blobs ---> " << blobs << endl;
 
@@ -125,6 +120,9 @@ int main(int argc, const char * argv[]) {
 
     Mat filled = colorBlobs.fillBlobs();
 
+    putText(filled, to_string(blobs) , cvPoint(30,30),
+            FONT_HERSHEY_COMPLEX_SMALL, 0.8, cvScalar(200,200,250), 1, CV_AA);
+    
     namedWindow("fillcolor", 0);
     imshow("fillcolor", filled);
     waitKey(0);
@@ -150,7 +148,7 @@ int main(int argc, const char * argv[]) {
 //        waitKey(0);
     
 //    cout << "Image enter into the smf -> \n" << image << endl;
-
+ */
     
     return 0;
 }

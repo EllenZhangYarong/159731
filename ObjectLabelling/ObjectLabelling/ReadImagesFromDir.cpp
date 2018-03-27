@@ -19,15 +19,13 @@ using namespace cv;
 
 ReadImagesFromDir::ReadImagesFromDir(string path){
     this->path = path;
-    cout<<path<<endl;
+//    cout<<path<<endl;
 };
 
 vector<Mat> ReadImagesFromDir::doReadImages(){
-    const string path = this->path ;
-    cout<<path<<endl;
-    char *p = new char[path.length()+1];
     
-    strcpy(p, path.c_str());
+    const string path = this->path ;
+//    cout<< path << endl;
     
     vector<Mat> images;
     
@@ -43,24 +41,24 @@ vector<Mat> ReadImagesFromDir::doReadImages(){
             if(strstr(ent->d_name,".jpg")){
                 
                 string imageaddress = path + "/" + ent->d_name;
-                cout<<"imageaddress -> "<<imageaddress<<endl;
+//                cout<<"imageaddress -> "<<imageaddress<<endl;
                 Mat image = imread(imageaddress,0);
                 
                 images.push_back(image);
 
             }
         }
-        for(auto image : images ){
-            cout<<image.size<<endl;
-        }
-        closedir (dir);
+//        for(auto image : images ){
+//            cout<<image.size<<endl;
+//        }
+        closedir (dir);  
         
     } else {
         /* could not open directory */
         perror ("could not open directory");
         exit(-1);
     }
-    delete[] p;
+
     this->images = images;
     return this->images;
 };

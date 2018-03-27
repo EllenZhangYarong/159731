@@ -42,3 +42,6 @@
 
 -- Sharpen the edge, not help to find blobs acuracy , but make this 3d feeling
 ![3d feeling about letters ](images/sharpedge.png)
+
+-- put number of blobs into the final image
+![put blobs's number into the image ](images/puttext.png)
