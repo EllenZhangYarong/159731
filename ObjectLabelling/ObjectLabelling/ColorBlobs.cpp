@@ -30,7 +30,8 @@ Mat ColorBlobs::fillBlobs(){
     Mat d , drawing;
     this->image.copyTo(d);
     d.convertTo(drawing, CV_8UC3);
-    cvtColor(drawing, drawing, CV_GRAY2RGB);
+//    cvtColor(drawing, drawing, CV_GRAY2RGB);
+    
 //    Mat drawing = Mat(this->image.rows, this->image.cols, CV_8UC3, Scalar(0,0,0));
     
 //    cout<<"Before fill-->"<<endl;

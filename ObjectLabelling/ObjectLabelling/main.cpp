@@ -7,6 +7,9 @@
 //
 
 #include <iostream>
+#include <chrono>
+#include <ctime>
+
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
@@ -23,14 +26,83 @@
 
 using namespace std;
 using namespace cv;
+using namespace chrono;
 
 string type2str(int type);
 
+Mat frame;//, image;
+
 int main(int argc, const char * argv[]) {
+
+    VideoCapture cap;
+    cap.open(0);
+    if (!cap.isOpened())
+    {
+        cout << "Failed to open camera" << endl;
+        return 0;
+    }
+    cout << "Opened camera" << endl;
+    namedWindow("WebCam", 1);
+    cap.set(CV_CAP_PROP_FRAME_WIDTH, 640);
+    //   cap.set(CV_CAP_PROP_FRAME_WIDTH, 960);
+    //   cap.set(CV_CAP_PROP_FRAME_WIDTH, 1600);
+    cap.set(CV_CAP_PROP_FRAME_HEIGHT, 480);
+    //   cap.set(CV_CAP_PROP_FRAME_HEIGHT, 720);
+    //   cap.set(CV_CAP_PROP_FRAME_HEIGHT, 1200);
+    cap >> frame;
+    printf("frame size %d %d \n",frame.rows, frame.cols);
+    int key=0;
     
-    /*
+    double fps=0.0;
+    while (1){
+        system_clock::time_point start = system_clock::now();
+        //for(int a=0;a<10;a++){
+        cap >> frame;
+        if( frame.empty() )
+            break;
+        
+        char printit[100];
+        sprintf(printit,"%2.1f",fps);
+        
+        //Code here
+        BinariseThreshold bt(frame);
+        Mat btimage = bt.doBinariseImage();
+        
+        BlobDetector blobDetector(btimage);
+        blobDetector.findingBlobs();
+        
+        int blobs = blobDetector.getNumberOfBlobs();
+        cout << "Final blobs ---> " << blobs << endl;
+        
+        //sb: sets of blobs without empty vectors, just blobs
+        vector<vector<Point>> sb = blobDetector.getFullBlobs();
+        
+        
+        ColorBlobs colorBlobs(frame, sb);
+        Mat filled = colorBlobs.fillBlobs();
+        
+        putText(filled, to_string(blobs) , cvPoint(40,40),
+                FONT_HERSHEY_COMPLEX_SMALL, 2.0, cvScalar(0,255,255), 2, CV_AA);
+        
+        namedWindow("fillcolor", 0);
+        imshow("fillcolor", filled);
+        waitKey(0);
+        
+        putText(frame, printit, cvPoint(10,30), FONT_HERSHEY_PLAIN, 2, cvScalar(255,255,255), 2, 8);
+        imshow("WebCam", frame);
+        key=waitKey(1);
+        if(key==113 || key==27) return 0;//either esc or 'q'
+        
+        //}
+        system_clock::time_point end = system_clock::now();
+        double seconds = std::chrono::duration_cast<std::chrono::microseconds>(end - start).count();
+        //fps = 1000000*10.0/seconds;
+        fps = 1000000/seconds;
+        cout << "frames " << fps << " seconds " << seconds << endl;
+    }
+/*
      For test a batch of images
-    */
+    
     
     ReadImagesFromDir rifd(argv[1]);
     vector<Mat> images = rifd.doReadImages();
@@ -64,8 +136,9 @@ int main(int argc, const char * argv[]) {
         imshow("fillcolor", filled);
         waitKey(0);
     }
-
-    /*
+*/
+    
+/*
      For test one single image
     
     Mat src = imread(argv[3], 0);
@@ -127,7 +200,7 @@ int main(int argc, const char * argv[]) {
     imshow("fillcolor", filled);
     waitKey(0);
     
-    
+
 //    BorderFinder borderFinder(filled, sb);
 //    sb = borderFinder.findingBorders();
 //
