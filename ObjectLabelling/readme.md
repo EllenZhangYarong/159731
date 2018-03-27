@@ -50,6 +50,6 @@
 
 -- put number of blobs into the final image
 
-![put blobs's number into the image ] (images/puttext.png)
+![put number of blobs into the final image ](images/puttext.png)
 
 - TO DO :  test camera
