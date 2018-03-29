@@ -35,16 +35,16 @@ vector<vector<Point>> BorderFinder::findingBorders(){
         vector<Point> points = this->setsBlobs.at(i);
         for(int j = 0 ; j< points.size(); j++){
 
-            top = int(image.at<uchar>(points.at(j).x,points.at(j).y-1));
-            bottom =int( image.at<uchar>(points.at(j).x,points.at(j).y+1));
-            left = int(image.at<uchar>(points.at(j).x-1,points.at(j).y));
-            right = int(image.at<uchar>(points.at(j).x+1,points.at(j).y));
+//            top = int(image.at<uchar>(points.at(j).x,points.at(j).y-1));
+//            bottom =int( image.at<uchar>(points.at(j).x,points.at(j).y+1));
+//            left = int(image.at<uchar>(points.at(j).x-1,points.at(j).y));
+//            right = int(image.at<uchar>(points.at(j).x+1,points.at(j).y));
             
-            cout<<" top= "<<top<<" bottom= "<<bottom<<" left = "<<left<<" right ="<<right<<endl;
+//            cout<<" top= "<<top<<" bottom= "<<bottom<<" left = "<<left<<" right ="<<right<<endl;
             if( (top != 0 && bottom != 0 && right != 0 && left != 0) ||
                (top == bottom==right==left == 0)){
                 
-                cout<<"coming ~~ ";
+//                cout<<"coming ~~ ";
                 points.erase(points.begin()+j);
             }else{
                 

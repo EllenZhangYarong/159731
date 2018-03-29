@@ -27,3 +27,29 @@
 -- finding border v1
 
 ![bording Version 1 ](images/borderV1.png)
+
+-- Median filter - perfect
+
+![median filter Version 1 ](images/filterV1.png)
+
+-- Simple threshold method
+
+![simple threshold Version 1 ](images/threshold.png)
+
+-- read all images to find blobs
+
+![read all images to find blobs ](images/saltblbs.png)
+
+-- I so love this bug, I am gonna be an artist :0
+
+![I so love this bug ](images/isolovethisbug.png)
+
+-- Sharpen the edge, not help to find blobs acuracy , but make this 3d feeling
+
+![3d feeling about letters ](images/sharpedge.png)
+
+-- put number of blobs into the final image
+
+![put number of blobs into the final image ](images/puttext.png)
+
+- TO DO :  test camera

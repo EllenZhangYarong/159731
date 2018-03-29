@@ -16,10 +16,10 @@ using namespace cv;
 
 
 RNG rng(012345);
-int thresh = 250;
-int max_thresh = 255;
+//int thresh = 250;
+//int max_thresh = 255;
 
-ColorBlobs::ColorBlobs(Mat &image, vector<vector<Point>> setsOfBlobs){
+ColorBlobs::ColorBlobs(Mat image, vector<vector<Point>> setsOfBlobs){
     this->image = image;
     this->setsOfBlobs = setsOfBlobs;
     
@@ -27,7 +27,12 @@ ColorBlobs::ColorBlobs(Mat &image, vector<vector<Point>> setsOfBlobs){
 
 Mat ColorBlobs::fillBlobs(){
     
-    Mat drawing = Mat(this->image.rows, this->image.cols, CV_8UC3,Scalar(0,0,0));
+    Mat d , drawing;
+    this->image.copyTo(d);
+    d.convertTo(drawing, CV_8UC3);
+//    cvtColor(drawing, drawing, CV_GRAY2RGB);
+    
+//    Mat drawing = Mat(this->image.rows, this->image.cols, CV_8UC3, Scalar(0,0,0));
     
 //    cout<<"Before fill-->"<<endl;
 //    cout<< drawing <<endl;
