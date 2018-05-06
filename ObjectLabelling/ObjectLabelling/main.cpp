@@ -64,6 +64,8 @@ int main(int argc, const char * argv[]) {
         char printit[100];
         sprintf(printit,"%2.1f",fps);
         
+        cvtColor(frame, frame, CV_BGR2GRAY);
+        
         //Code here
         BinariseThreshold bt(frame);
         Mat btimage = bt.doBinariseImage();
@@ -78,15 +80,13 @@ int main(int argc, const char * argv[]) {
         vector<vector<Point>> sb = blobDetector.getFullBlobs();
         
         
-        ColorBlobs colorBlobs(frame, sb);
-        Mat filled = colorBlobs.fillBlobs();
-        
-        putText(filled, to_string(blobs) , cvPoint(40,40),
+//
+        putText(frame, to_string(blobs) , cvPoint(40,40),
                 FONT_HERSHEY_COMPLEX_SMALL, 2.0, cvScalar(0,255,255), 2, CV_AA);
-        
-        namedWindow("fillcolor", 0);
-        imshow("fillcolor", filled);
-        waitKey(0);
+//
+//        namedWindow("fillcolor", 0);
+//        imshow("fillcolor", filled);
+//        waitKey(0);
         
         putText(frame, printit, cvPoint(10,30), FONT_HERSHEY_PLAIN, 2, cvScalar(255,255,255), 2, 8);
         imshow("WebCam", frame);
