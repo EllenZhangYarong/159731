@@ -1,0 +1,104 @@
+
+
+
+angle1 =  (dx1*dx2 + dy1*dy2)/sqrt((dx1*dx1 + dy1*dy1)*(dx2*dx2 + dy2*dy2) + 1e-10);
+
+double dx11 = circles[1][0] - circles[0][0];
+double dy11 = circles[1][1] - circles[0][1];
+double dx21 = circles[1][0] - circles[2][0];
+double dy21 = circles[1][1] - circles[2][1];
+
+angle2 =  (dx11*dx21 + dy11*dy21)/sqrt((dx11*dx11 + dy11*dy11)*(dx21*dx21 + dy21*dy21) + 1e-10);
+
+double dx12 = circles[2][0] - circles[0][0];
+double dy12 = circles[2][1] - circles[0][1];
+double dx22 = circles[2][0] - circles[1][0];
+double dy22 = circles[2][1] - circles[1][1];
+
+angle3 =  (dx12*dx22 + dy12*dy22)/sqrt((dx12*dx12 + dy12*dy12)*(dx22*dx22 + dy22*dy22) + 1e-10);
+
+cout<<"angle1 --> "<<angle1<<endl;
+cout<<"angle2 --> "<<angle2<<endl;
+cout<<"angle3 --> "<<angle2<<endl;
+
+if(abs(angle1) > abs(angle2) && abs(angle1) > abs(angle3) ){
+cout<<"1--->"<<endl;
+
+rightAngelPoint.x = circles[0][0];
+rightAngelPoint.y = circles[0][1];
+this->rightAnglePoint = rightAngelPoint;
+otherPoint1.x = circles[1][0];
+otherPoint1.y = circles[1][1];
+otherPoint2.x = circles[2][0];
+otherPoint2.y = circles[2][1];
+}
+if(abs(angle2) > abs(angle1) && abs(angle2) > abs(angle3) ){
+cout<<"2--->"<<endl;
+
+rightAngelPoint.x = circles[1][0];
+rightAngelPoint.y = circles[1][1];
+this->rightAnglePoint = rightAngelPoint;
+
+otherPoint1.x = circles[0][0];
+otherPoint1.y = circles[0][1];
+otherPoint2.x = circles[2][0];
+otherPoint2.y = circles[2][1];
+}
+if(abs(angle3) > abs(angle2) && abs(angle3) > abs(angle1) ){
+cout<<"3--->"<<endl;
+rightAngelPoint.x = circles[2][0];
+rightAngelPoint.y = circles[2][1];
+this->rightAnglePoint = rightAngelPoint;
+otherPoint1.x = circles[0][0];
+otherPoint1.y = circles[0][1];
+otherPoint2.x = circles[1][0];
+otherPoint2.y = circles[1][1];
+}
+
+//
+//    cout<<"0---> "<< angel <<endl;
+//
+//    if( abs(angle)< M_PI/2+0.2 && abs(angle)> M_PI/2-0.2){
+//        rightAngelPoint.x = circles[0][0];
+//        rightAngelPoint.y = circles[0][1];
+//        this->rightAnglePoint = rightAngelPoint;
+//        otherPoint1.x = circles[1][0];
+//        otherPoint1.y = circles[1][1];
+//        otherPoint2.x = circles[2][0];
+//        otherPoint2.y = circles[2][1];
+//
+////
+//    }else{
+//
+//        angle = atan2(circles[0][1], circles[0][0]) - atan2(circles[2][1], circles[2][0]);
+
+//        double dx1 = circles[1][0] - circles[2][0];
+//        double dy1 = circles[1][1] - circles[2][1];
+//        double dx2 = circles[1][0] - circles[0][0];
+//        double dy2 = circles[1][1] - circles[0][1];
+//
+//        angel =  (dx1*dx2 + dy1*dy2)/sqrt((dx1*dx1 + dy1*dy1)*(dx2*dx2 + dy2*dy2) + 1e-10);
+//
+//        cout<<"1---> "<<angle<<endl;
+//
+//        if(abs(angle)< M_PI/2+0.2 && abs(angle)> M_PI/2-0.2){
+//            rightAngelPoint.x = circles[1][0];
+//            rightAngelPoint.y = circles[1][1];
+//            this->rightAnglePoint = rightAngelPoint;
+//
+//            otherPoint1.x = circles[0][0];
+//            otherPoint1.y = circles[0][1];
+//            otherPoint2.x = circles[2][0];
+//            otherPoint2.y = circles[2][1];
+//
+//        }else{
+//            cout<<"2--->"<<endl;
+//            rightAngelPoint.x = circles[2][0];
+//            rightAngelPoint.y = circles[2][1];
+//            this->rightAnglePoint = rightAngelPoint;
+//            otherPoint1.x = circles[0][0];
+//            otherPoint1.y = circles[0][1];
+//            otherPoint2.x = circles[1][0];
+//            otherPoint2.y = circles[1][1];
+//        }
+//    }
