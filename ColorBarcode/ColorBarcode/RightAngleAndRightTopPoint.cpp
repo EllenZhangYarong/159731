@@ -10,10 +10,8 @@
 
 #include <iostream>
 #include <stdio.h>
-#include <stdlib.h>
 
 #include "RightAngleAndRightTopPoint.hpp"
-
 
 using namespace std;
 
@@ -36,12 +34,12 @@ void RightAngleAndRightTopPoint::findRightAngle(vector<Vec3f> circles){
     double angle2 = Vector2D<double>::angle(p1-p2, p3-p2);
     double angle3 = Vector2D<double>::angle(p1-p3, p2-p3);
 
-    cout<<"angle1 --> "<< angle1 << endl;
-    cout<<"angle2 --> "<< angle2 << endl;
-    cout<<"angle3 --> "<< angle3 << endl;
+//    cout<<"angle1 --> "<< angle1 << endl;
+//    cout<<"angle2 --> "<< angle2 << endl;
+//    cout<<"angle3 --> "<< angle3 << endl;
     
     if(angle1 > angle2 && angle1 > angle3 ){
-        cout<<"1--->"<<endl;
+//        cout<<"1--->"<<endl;
         
         rightAngelPoint.x = circles[0][0];
         rightAngelPoint.y = circles[0][1];
@@ -53,7 +51,7 @@ void RightAngleAndRightTopPoint::findRightAngle(vector<Vec3f> circles){
     }
     
     if(angle2 > angle1 && angle2 > angle3 ){
-        cout<<"2--->"<<endl;
+//        cout<<"2--->"<<endl;
         
         rightAngelPoint.x = circles[1][0];
         rightAngelPoint.y = circles[1][1];
@@ -66,7 +64,7 @@ void RightAngleAndRightTopPoint::findRightAngle(vector<Vec3f> circles){
     }
     
     if(angle3 > angle2 && angle3 > angle1 ){
-        cout<<"3--->"<<endl;
+//        cout<<"3--->"<<endl;
         rightAngelPoint.x = circles[2][0];
         rightAngelPoint.y = circles[2][1];
         this->rightAnglePoint = rightAngelPoint;
@@ -75,14 +73,13 @@ void RightAngleAndRightTopPoint::findRightAngle(vector<Vec3f> circles){
         otherPoint2.x = circles[1][0];
         otherPoint2.y = circles[1][1];
     }
-
-
+    
     this->otherPoint1 = otherPoint1;
     this->otherPoint2 = otherPoint2;
-    cout<<"rightAngelPoint --->"<<rightAngelPoint<<endl;
-    cout<< "this->rightAngelPoint--->"<< this->rightAnglePoint<<endl;
-    cout<<"this->otherPoint1 ---> " << this->otherPoint1 << endl;
-    cout<<"this->otherPoint2 ---> " << this->otherPoint2 << endl;
+//    cout<<"rightAngelPoint --->"<<rightAngelPoint<<endl;
+//    cout<< "this->rightAngelPoint--->"<< this->rightAnglePoint<<endl;
+//    cout<<"this->otherPoint1 ---> " << this->otherPoint1 << endl;
+//    cout<<"this->otherPoint2 ---> " << this->otherPoint2 << endl;
 
 };
 
@@ -108,9 +105,9 @@ void RightAngleAndRightTopPoint::computeTheMissingPoint(){
             this->missingPoint = missingPoint1;
         }
     
-    cout<<"missingPoint1 : " << missingPoint1 << endl;
-    cout<<"missingPoint2 : " << missingPoint2 << endl;
-    cout<< "this-> missingPoint : "<< this->missingPoint << endl;
+//    cout<<"missingPoint1 : " << missingPoint1 << endl;
+//    cout<<"missingPoint2 : " << missingPoint2 << endl;
+//    cout<< "this-> missingPoint : "<< this->missingPoint << endl;
 };
 Point2f RightAngleAndRightTopPoint::getMissingPoint(){
     
