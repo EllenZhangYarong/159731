@@ -5,7 +5,7 @@
 //  Created by 张亚荣 on 2018/5/7.
 //  Copyright © 2018年 EllenAndAngel. All rights reserved.
 //
-  
+
 #include "DecodingAndEncoding.hpp"
 #include <iostream>
 
@@ -62,8 +62,7 @@ string DecodingAndEncoding::decodingQR(){
                 mesCode = this->encodingarray[h];
 //                mesCode = static_cast<char>(std::bitset<6>(meschar).to_ulong() + 64);
                 
-                cout<<mesCode;
-                mesFinal.append(mesCode);
+                  mesFinal.append(mesCode);
 
                 meschar = "";
                 mesCode = "";

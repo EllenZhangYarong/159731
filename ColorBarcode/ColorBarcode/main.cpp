@@ -20,19 +20,23 @@ using namespace cv;
 
 int main(int argc, const char * argv[]) {
     
+    cout<<"Please input an image directory  :) "<<endl;
+    
     Mat src, src_gray, copyofsrc;
     
     Point2f originalPoint(90,90);
     Point2f centerOfImage;
     
-    cout<<argv[1]<<endl;
+//    cout<<argv[1]<<endl;
     
+    
+/* Use for test whole image directory
     ReadImagesFromDir rifd(argv[1]);
     vector<Mat> images = rifd.doReadImages();
-    
-    cout<<images.size()<<endl;
-    
     for(auto src : images ){
+*/
+    src = imread(argv[1]);
+
 
         cout<<"Source size ---> "<<src.size()<<endl;
         src.copyTo(copyofsrc);
@@ -69,25 +73,24 @@ int main(int argc, const char * argv[]) {
         RightAngleAndRightTopPoint raart;
         raart.findRightAngle(circles);
         raart.computeTheMissingPoint();
+        
         Point2f missingPoint,rightAnglePoint, otherPoint1, otherPoint2;
+        
         missingPoint = raart.getMissingPoint();
         rightAnglePoint = raart.getRightAnglePoint();
         otherPoint1 = raart.getOtherPoint1();
         otherPoint2 = raart.getOtherPoint2();
         
-        
         circle( copyofsrc, missingPoint, 20, Scalar(0,0,255), 3, 8, 0 );
         circle( copyofsrc, rightAnglePoint, 20, Scalar(255,0,255), 3, 8, 0 );
 
- 
         line(copyofsrc, originalPoint, centerOfImage, cvScalar(0,255,0), 4);
         line(copyofsrc, rightAnglePoint,  centerOfImage, cvScalar(0,255,0), 4);
         
-        namedWindow( "Hough Circle Transform Demo", CV_WINDOW_AUTOSIZE );
-        imshow( "Hough Circle Transform Demo", copyofsrc );
+        namedWindow( "Image", CV_WINDOW_AUTOSIZE );
+        imshow( "Image", copyofsrc );
         waitKey(0);
-        
-        
+    
         vector<Point2f> desPoints, orgPoints;
         desPoints.push_back(Point2f(90,90));
         desPoints.push_back(Point2f(90,910));
@@ -124,34 +127,24 @@ int main(int argc, const char * argv[]) {
             Mat M = getPerspectiveTransform(orgPoints, desPoints);
             warpPerspective(src,src,M,Size(1000,1000));
         }
-//        cout<<"Resized image --- >  "<<src.size()<<endl;
-        
-        namedWindow( "warpPerspective", CV_WINDOW_AUTOSIZE );
-        imshow( "warpPerspective", src );
-        waitKey(0);
-        
+    
         Rect roi = Rect(30,30,940,940);
         Mat noBorderImage = src(roi);
         
 //        namedWindow( "No border image", CV_WINDOW_AUTOSIZE );
-        imshow( "No border image", noBorderImage );
+        imshow( "Image  ", noBorderImage );
         waitKey(0);
         
         resize(noBorderImage, noBorderImage, Size(47,47),0,0);
         
+        //        imshow( "Image", noBorderImage );
+        //        waitKey(0);
+        
         DecodingAndEncoding dae(noBorderImage);
         string message = dae.decodingQR();
-        
-        cout<<"\nMessage: \n"<<message<<endl;
+    
+        cout<<"\nMessage:\n"<<message<<endl;
 
-        
-//        cout<<"No border image --- >  "<<noBorderImage.size()<<endl;
-//        namedWindow( "No border image", CV_WINDOW_AUTOSIZE );
-        imshow( "No border image", noBorderImage );
-        waitKey(0);
-        
-    }
-    // insert code here...
-    std::cout << "Hello, World!\n";
+//    }
     return 0;
 }
