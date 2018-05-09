@@ -11,6 +11,10 @@
 
 ![ Draw Hough circles and missing points ](pics/Circlesandmissingpoint.png)
 
--- Message hiding under the QRCode
+-- right and crop the QRCode
 
 ![ Message ](pics/RecognizedQR.png)
+
+-- Message hiding under the QRCode
+
+![ Message ](pics/messageunderQRcode.png)
