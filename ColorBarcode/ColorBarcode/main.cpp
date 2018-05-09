@@ -30,12 +30,11 @@ int main(int argc, const char * argv[]) {
 //    cout<<argv[1]<<endl;
     
     
-/* Use for test whole image directory
     ReadImagesFromDir rifd(argv[1]);
     vector<Mat> images = rifd.doReadImages();
     for(auto src : images ){
-*/
-    src = imread(argv[1]);
+
+//    src = imread(argv[1]);
 
 
         cout<<"Source size ---> "<<src.size()<<endl;
@@ -145,6 +144,6 @@ int main(int argc, const char * argv[]) {
     
         cout<<"\nMessage:\n"<<message<<endl;
 
-//    }
+    }
     return 0;
 }
