@@ -23,13 +23,24 @@ class ASLGuesture{
     
 private:
     vector<string> files;
-    vector<Mat> X;
-    vector<int> y;
+    
+    Mat image;
 public:
     ASLGuesture();
-    vector<string> getFilesInDirectory(const string& directory);
-    vector<Mat,int> loadData();
-    inline string getClassName(const string& filename);
+    vector<string> getFilesInDirectory(const string&);
+    void loadData();
+    char getClassIntLabel(string&);
+    Mat readImage(string&);
+    Vec2f findDescriptor(Mat);
+    vector<Point> getContourLine(const Mat& matImg,
+                        vector<Mat>& vmatObjList,
+                        const int &iThresh,
+                        const int &k);
+
+    Mat makeFD(const Mat& matContour);
+    Mat normFD(Mat& matFD, const int &n);
+    vector<float> EllipticFourierDescriptors(vector<Point>&);
+
 
 };
 #endif /* ASLGuesture_hpp */
