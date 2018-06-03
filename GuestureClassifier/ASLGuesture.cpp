@@ -150,7 +150,7 @@ vector<Point> ASLGuesture::getContourLine(const Mat& matImg,
     }
 //    cout<<"largest_area = "<< largest_area<< " largest_contour_index -- >  "<<largest_contour_index<<endl;
     
-    drawContours( drawing, vmatObjList, largest_contour_index, color, 2, 8, hierarchy, 0, Point() );
+//    drawContours( drawing, vmatObjList, largest_contour_index, color, 2, 8, hierarchy, 0, Point() );
 //    cout<<vmatObjList[largest_contour_index].size<<endl;
     /// Show in a window
 //    namedWindow( "Contours", CV_WINDOW_AUTOSIZE );
